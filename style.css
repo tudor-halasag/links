@@ -34,7 +34,7 @@ header {
 .logo-link { display: flex; }
 
 .header-logo {
-  height: 48px;
+  height: 72px;
   width: auto;
   filter: brightness(0) invert(1);
   transition: opacity 0.2s;
@@ -192,7 +192,7 @@ footer {
 .footer-logo-btn:hover { opacity: 0.65; }
 
 .footer-logo {
-  height: 28px;
+  height: 40px;
   width: auto;
   filter: brightness(0) invert(1);
 }
