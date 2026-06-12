@@ -6,7 +6,6 @@
   --text:      #E8EAF0;
   --btn-bg:    #1E2438;
   --btn-hover: #3A4260;
-  --logo-mask: url('tahlogo.svg');
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +28,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
+  overflow: visible;
 }
 
 .logo-link { display: flex; }
@@ -43,8 +43,9 @@ header {
 }
 
 .header-logo {
-  height: 96px;
+  height: 140px;
   width: auto;
+  display: block;
   filter: brightness(0) invert(1);
   transition: opacity 0.2s;
 }
@@ -69,8 +70,8 @@ main {
 }
 
 .avatar-wrap {
-  width: 128px;
-  height: 128px;
+  width: 176px;
+  height: 176px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid var(--hxf);
@@ -201,18 +202,10 @@ footer {
 .footer-logo-btn:hover { opacity: 0.65; }
 
 .footer-logo {
-  height: 56px;
-  width: 56px;
-  background-color: var(--hxf-dark);
-  -webkit-mask-image: var(--logo-mask);
-  mask-image: var(--logo-mask);
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
+  height: 80px;
+  width: auto;
   display: block;
+  filter: brightness(0);
 }
 
 .footer-gh {
