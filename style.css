@@ -28,8 +28,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 1rem;
-  overflow: visible;
+  padding: 0.5rem 1rem;
 }
 
 .logo-link { display: flex; }
@@ -43,7 +42,7 @@ header {
 }
 
 .header-logo {
-  height: 140px;
+  height: 64px;
   width: auto;
   display: block;
   filter: brightness(0) invert(1);
@@ -185,9 +184,8 @@ footer {
 .footer-inner {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 1.25rem;
-  margin-bottom: 0.5rem;
 }
 
 .footer-logo-btn {
@@ -202,7 +200,7 @@ footer {
 .footer-logo-btn:hover { opacity: 0.65; }
 
 .footer-logo {
-  height: 80px;
+  height: 36px;
   width: auto;
   display: block;
   filter: brightness(0);
@@ -223,6 +221,7 @@ footer {
   text-transform: uppercase;
   color: var(--hxf-dark);
   font-family: 'Oswald', sans-serif;
+  flex: 1;
 }
 
 /* ── ANIMATIONS ── */
