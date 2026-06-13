@@ -1,9 +1,9 @@
 :root {
-  --bg:        #2A324B;
-  --hxf:       #767B91;
-  --accent:    #C7CCDB;
-  --hxf-dark:  #24262D;
-  --text:      #E8EAF0;
+  --bg:        #233D4D;
+  --hxf:       #FE7F2D;
+  --accent:    #FE7F2D;
+  --hxf-dark:  #233D4D;
+  --text:      #FFFFFF;
   --btn-bg:    #1E2438;
   --btn-hover: #3A4260;
 }
@@ -111,7 +111,7 @@ main {
 }
 
 .motto {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Barlow', sans-serif;
   font-size: 0.95rem;
   font-style: italic;
   color: var(--hxf);
