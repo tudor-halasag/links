@@ -149,6 +149,9 @@ main {
 .btn:nth-child(6) { animation-delay: 0.45s; }
 .btn:nth-child(7) { animation-delay: 0.53s; }
 .btn:nth-child(8) { animation-delay: 0.61s; }
+.btn:nth-child(9) { animation-delay: 0.69s; }
+.btn:nth-child(10) { animation-delay: 0.77s; }
+.btn:nth-child(11) { animation-delay: 0.85s; }
 
 .btn span {
   display: flex;
