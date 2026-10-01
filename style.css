@@ -164,8 +164,21 @@ main {
 .scroll-window {
   position: relative;
   height: var(--window-h);
-  overflow: hidden;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
   flex: 1;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-window::-webkit-scrollbar { display: none; }
+
+/* padding top/bottom so first/last item can centre */
+.scroll-window::before,
+.scroll-window::after {
+  content: '';
+  display: block;
+  height: calc(var(--window-h) / 2 - var(--item-h) / 2);
+  flex-shrink: 0;
 }
 
 .fade {
@@ -191,39 +204,45 @@ main {
   list-style: none;
   display: flex;
   flex-direction: column;
-  transform: translateY(calc(var(--window-h) / 2 - var(--item-h) / 2));
-  will-change: transform;
+  gap: 8px;
+  padding: calc(var(--window-h) / 2 - var(--item-h) / 2) 0;
 }
 
 .scroll-list li {
   height: var(--item-h);
+  min-height: var(--item-h);
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0 1rem;
+  padding: 0 1.2rem;
   font-family: 'Oswald', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.3);
   cursor: pointer;
-  border-radius: 10px;
-  transition: color 0.3s, background 0.3s;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: color 0.25s, background 0.25s, border-color 0.25s, box-shadow 0.25s;
   user-select: none;
+  scroll-snap-align: center;
+  flex-shrink: 0;
 }
 
 .scroll-list li .ti {
   width: 22px;
   height: 22px;
   flex-shrink: 0;
-  opacity: 0.4;
-  transition: opacity 0.3s;
+  opacity: 0.35;
+  transition: opacity 0.25s;
 }
 
 .scroll-list li.active {
   color: var(--bg);
   background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
 }
 
 .scroll-list li.active .ti {

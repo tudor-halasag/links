@@ -108,96 +108,54 @@
   </footer>
 
   <script>
-    const ITEM_H = 64;    // px — must match CSS --item-h
-    const PAUSE  = 1800;  // ms each item stays centred
-    const TRANS  = 420;   // ms slide transition
+    const ITEM_H = 64;
+    const win    = document.querySelector('.scroll-window');
+    const list   = document.getElementById('scrollList');
+    const items  = Array.from(list.children);
+    const N      = items.length;
 
-    const list    = document.getElementById('scrollList');
-    const pointer = document.getElementById('pointer');
-    const items   = Array.from(list.children);
-    const N       = items.length;
-
-    // Clone list for seamless loop
-    items.forEach(li => {
-      const clone = li.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      list.appendChild(clone);
-    });
-
-    let current = 0;
-    let offset  = 0;   // translateY applied to list
-    let animating = false;
-
-    function centreOn(idx) {
-      // idx relative to original N items
-      offset = -(idx * ITEM_H);
-      list.style.transition = `transform ${TRANS}ms cubic-bezier(0.77,0,0.18,1)`;
-      list.style.transform  = `translateY(${offset}px)`;
-      updateActive(idx);
-    }
-
-    function updateActive(idx) {
-      // real items + clones
-      Array.from(list.children).forEach((li, i) => {
-        li.classList.toggle('active', i % N === idx);
+    function getActive() {
+      // which item is closest to centre
+      const centre = win.scrollTop + win.clientHeight / 2;
+      let best = 0, bestDist = Infinity;
+      items.forEach((li, i) => {
+        const mid = li.offsetTop + ITEM_H / 2;
+        const d   = Math.abs(mid - centre);
+        if (d < bestDist) { bestDist = d; best = i; }
       });
+      return best;
     }
 
-    function navigate(idx) {
-      current = ((idx % N) + N) % N;
-      centreOn(current);
+    function updateActive() {
+      const idx = getActive();
+      items.forEach((li, i) => li.classList.toggle('active', i === idx));
     }
 
-    function step() {
-      if (animating) return;
-      animating = true;
-      const next = current + 1;
-
-      if (next >= N) {
-        // Jump to clone silently, then real reset
-        const cloneOffset = -(next * ITEM_H);
-        list.style.transition = 'none';
-        list.style.transform  = `translateY(${cloneOffset}px)`;
-        updateActive(0);
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          current = 0;
-          centreOn(0);
-          setTimeout(() => { animating = false; }, TRANS);
-        }));
-      } else {
-        current = next;
-        centreOn(current);
-        setTimeout(() => { animating = false; }, TRANS);
-      }
-    }
-
-    // Click on item → navigate + open link
+    // Click → open link if already active, else scroll to it
     list.addEventListener('click', e => {
       const li = e.target.closest('li');
       if (!li) return;
-      const realIdx = Array.from(list.children).indexOf(li) % N;
+      const idx = items.indexOf(li);
+      if (idx < 0) return;
 
-      if (realIdx === current) {
-        // Already active — open the link
-        const href   = items[realIdx].dataset.href;
-        const target = items[realIdx].dataset.target;
+      if (li.classList.contains('active')) {
+        const href   = li.dataset.href;
+        const target = li.dataset.target;
         if (href) {
           if (target === '_blank') window.open(href, '_blank', 'noopener');
           else window.location.href = href;
         }
       } else {
-        navigate(realIdx);
-        clearInterval(ticker);
-        ticker = setInterval(step, PAUSE + TRANS);
+        const targetScroll = li.offsetTop - (win.clientHeight / 2) + (ITEM_H / 2);
+        win.scrollTo({ top: targetScroll, behavior: 'smooth' });
       }
     });
 
-    // Init
-    updateActive(0);
-    list.style.transition = 'none';
-    list.style.transform  = 'translateY(0)';
+    win.addEventListener('scroll', updateActive, { passive: true });
 
-    let ticker = setInterval(step, PAUSE + TRANS);
+    // Init scroll to item 0 centred
+    win.scrollTop = items[0].offsetTop - (win.clientHeight / 2) + (ITEM_H / 2);
+    updateActive();
   </script>
 
 </body>
